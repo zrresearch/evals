@@ -18,7 +18,9 @@ TIER2 = {
     # instruction following
     "ifeval": dict(task="inspect_evals/ifeval"),                                     # 541
     # coding (rule-scored, run in Python)
-    "livebench_coding": dict(task="inspect_evals/livebench", args={"category": "coding"}),
+    # inspect_evals' pinned snapshot: 128 problems from 2024 releases, all retired by LiveBench in 2025-04, so pin
+    # the release date they were live at or the task loads nothing
+    "livebench_coding": dict(task="inspect_evals/livebench", args={"category": "coding", "livebench_release_date": "2024-07-26"}),
     # tool use
     "bfcl_multi_turn": dict(task="inspect_evals/bfcl", args={"categories": "multi_turn_base"}, limit=100, shuffle=True),
     "bfcl_live": dict(task="inspect_evals/bfcl", args={"categories": "live_multiple"}, limit=200, shuffle=True),

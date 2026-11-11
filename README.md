@@ -37,7 +37,14 @@ says otherwise (record it in `--note`). Serve the model with at least as many st
 ## Running
 
 Inspect AI, inspect_evals and Harbor live in Python environments in the eval account's home (`~/evals/.venv`,
-`~/evals/.venv-tb`, made with uv); the runners call them as that account, named by `EVAL_USER` in the environment.
+`~/evals/.venv-tb`, made with uv); the runners call them as that account, named by `EVAL_USER` in the environment. Install:
+
+```
+uv venv --python 3.12 .venv && uv pip install --python .venv/bin/python inspect-ai openai \
+  "inspect_evals[livebench,ifeval] @ git+https://github.com/UKGovernmentBEIS/inspect_evals@50b8b19c3" \
+  "livebench @ git+https://github.com/LiveBench/LiveBench.git"
+uv venv --python 3.12 .venv-tb && uv pip install --python .venv-tb/bin/python harbor
+```
 
 ```
 python3 run.py    --label <model>-<setup> --model <served name> --base-url http://<head>:<port>/v1 --note "<build, pack, Sparks, streams>"
@@ -64,4 +71,5 @@ the same hardware.
 - Every public test here can be in a model's training data. That inflates absolute scores; it matters less for
   paired comparisons between builds of one model.
 - RULER here is a rule-scored reimplementation of five of its tasks, not the original harness.
-- LiveBench snapshots in inspect_evals are pinned to its 2024–2025 releases.
+- LiveBench coding: inspect_evals pins a snapshot whose 128 problems date from mid-2024 (LiveBench retired them in
+  April 2025); the suite pins their release date so they load.

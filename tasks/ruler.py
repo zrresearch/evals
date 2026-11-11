@@ -110,10 +110,11 @@ def string_match_all():
 
 
 @task
-def ruler(lengths: str = "32768,131072", per_task: int = 8, seed: int = 2026):
+def ruler(lengths: str | list = "32768,131072", per_task: int = 8, seed: int = 2026):
     rng = random.Random(seed)
     samples = []
-    for L in [int(x) for x in str(lengths).split(",")]:
+    # -T lengths=32768,131072 arrives as a list from the command line
+    for L in [int(x) for x in (lengths if isinstance(lengths, list) else str(lengths).split(","))]:
         for name, fn in TASKS.items():
             # cwe: numbered entries run about 5.6 tokens each; capped at 32K (a counting test over the whole list)
             n = int(min(L, 32768) / 5.6) if name == "cwe" else words_for(L) - 120
