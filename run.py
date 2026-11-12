@@ -39,7 +39,7 @@ def main():
     p.add_argument("--temperature", type=float, default=0.6)
     p.add_argument("--top-p", type=float, default=0.95)
     p.add_argument("--max-tokens", type=int, default=32768)
-    p.add_argument("--timeout", type=int, default=3600, help="seconds per request")
+    p.add_argument("--timeout", type=int, default=7200, help="seconds per request")
     p.add_argument("--note", default="")
     p.add_argument("--quick", action="store_true")
     a = p.parse_args()
@@ -76,7 +76,9 @@ def main():
         cmd = [".venv/bin/inspect", "eval", t["task"], "--model", f"openai-api/spark/{a.model}",
                "--log-dir", str(logdir), "--display", "none", "--no-fail-on-error",
                "--max-connections", str(a.conc), "--temperature", str(a.temperature), "--top-p", str(a.top_p),
-               "--max-tokens", str(a.max_tokens), "--seed", str(SEED), "--timeout", str(a.timeout)]
+               "--max-tokens", str(a.max_tokens), "--seed", str(SEED), "--timeout", str(a.timeout),
+               # the OpenAI client's own 600 s default otherwise cuts off long reasoning and retries it from scratch
+               "-M", f"client_timeout={a.timeout}"]
         for k, v in t.get("args", {}).items():
             cmd += ["-T", f"{k}={v}"]
         if "epochs" in t:
