@@ -1,0 +1,200 @@
+{
+ "label": "ripple-65b-4x",
+ "model": "Ripple-65B-Preview-4x",
+ "suite": "2026.11-1",
+ "tier": "2",
+ "seed": 2026,
+ "note": "Ripple-65B-Preview, ajensenwaud 5.0bpw EXL3 pack @1d260f75, DFlash2 on; TensorFold 1.2.3 + patch 0010 (tree 326a0a51), TP=4 over a QSFP switch, 8 streams x 256K. Card gives no sampling advice: playbook default.",
+ "sampling": {
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "max_tokens": 32768
+ },
+ "concurrency": 8,
+ "tests": {
+  "gpqa": {
+   "status": "success",
+   "task": "inspect_evals/gpqa_diamond",
+   "task_args": {
+    "cot": true,
+    "high_level_domain": null,
+    "subdomain": null,
+    "shuffle_choices": 42
+   },
+   "metrics": {
+    "choice": {
+     "accuracy": 0.797979797979798,
+     "stderr": 0.02860620428922983
+    }
+   },
+   "started": "2026-11-12T02:02:31+00:00",
+   "completed": "2026-11-12T06:26:59+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T02-02-31-00-00_gpqa-diamond_Rshh3jjZPpYbWPEpyNZrCp.eval"
+  },
+  "mmlu_pro": {
+   "status": "success",
+   "task": "inspect_evals/mmlu_pro",
+   "task_args": {
+    "subjects": [],
+    "fewshot": 0,
+    "shuffle": true
+   },
+   "metrics": {
+    "choice": {
+     "accuracy": 0.8085714285714286,
+     "stderr": 0.01488072143699805
+    }
+   },
+   "started": "2026-11-12T06:27:04+00:00",
+   "completed": "2026-11-12T11:29:59+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T06-27-04-00-00_mmlu-pro_bZYANYv98y4uZNsW3Ms9dX.eval"
+  },
+  "aime2025": {
+   "status": "success",
+   "task": "inspect_evals/aime2025",
+   "task_args": {},
+   "metrics": {
+    "aime_scorer": {
+     "accuracy": 0.9666666666666667,
+     "stderr": 0.033333333333333326
+    }
+   },
+   "started": "2026-11-12T11:30:03+00:00",
+   "completed": "2026-11-12T14:58:06+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T11-30-03-00-00_aime2025_GSqHjMDTknJQUg4wHhD5mD.eval"
+  },
+  "ifeval": {
+   "status": "success",
+   "task": "inspect_evals/ifeval",
+   "task_args": {},
+   "metrics": {
+    "instruction_following": {
+     "prompt_strict_acc": 0.922365988909427,
+     "prompt_strict_stderr": 0.011515446262123547,
+     "prompt_loose_acc": 0.9316081330868762,
+     "prompt_loose_stderr": 0.010862304803962544,
+     "inst_strict_acc": 0.9376498800959233,
+     "inst_strict_stderr": 0.009995802396831314,
+     "inst_loose_acc": 0.9436450839328537,
+     "inst_loose_stderr": 0.009729950092481492,
+     "final_acc": 0.93381727150627,
+     "final_stderr": 0.01384196952218792
+    }
+   },
+   "started": "2026-11-12T14:58:11+00:00",
+   "completed": "2026-11-12T19:19:15+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T14-58-11-00-00_ifeval_eEmSaDL8MzoKD7mdPbKx3c.eval"
+  },
+  "livebench_coding": {
+   "status": "success",
+   "task": "inspect_evals/livebench",
+   "task_args": {
+    "livebench_release_date": "date",
+    "category": "coding"
+   },
+   "metrics": {
+    "decide_scorer": {
+     "coding": 0.765625,
+     "livebench": 0.765625
+    }
+   },
+   "started": "2026-11-12T19:19:21+00:00",
+   "completed": "2026-11-12T21:44:28+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T19-19-21-00-00_livebench_kMp5tNLx2v8XLwinhtTocA.eval"
+  },
+  "bfcl_multi_turn": {
+   "status": "success",
+   "task": "inspect_evals/bfcl",
+   "task_args": {
+    "categories": "multi_turn_base",
+    "snapshot_id": null
+   },
+   "metrics": {
+    "bfcl_scorer": {
+     "accuracy": 0.74,
+     "stderr": 0.04408440022768081,
+     "multi_turn_base_acc": 0.74,
+     "all": 0.74,
+     "multi_turn_base_sterr": 0.04408440022768081,
+     "all2": 0.04408440022768081
+    }
+   },
+   "started": "2026-11-12T21:44:37+00:00",
+   "completed": "2026-11-12T23:03:55+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T21-44-37-00-00_bfcl_BkfU9yBxj6MyBrhgoofJbi.eval"
+  },
+  "bfcl_live": {
+   "status": "success",
+   "task": "inspect_evals/bfcl",
+   "task_args": {
+    "categories": "live_multiple",
+    "snapshot_id": null
+   },
+   "metrics": {
+    "bfcl_scorer": {
+     "accuracy": 0.78,
+     "stderr": 0.02936514188266327,
+     "live_multiple_acc": 0.78,
+     "all": 0.78,
+     "live_multiple_sterr": 0.02936514188266327,
+     "all2": 0.02936514188266327
+    }
+   },
+   "started": "2026-11-12T23:04:01+00:00",
+   "completed": "2026-11-12T23:16:47+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-12T23-04-01-00-00_bfcl_fExZFVXR6MKSbkjYzpK6qD.eval"
+  },
+  "ruler": {
+   "status": "success",
+   "task": "ruler",
+   "task_args": {
+    "lengths": [
+     "32768",
+     "131072"
+    ],
+    "per_task": 8,
+    "seed": 2026
+   },
+   "metrics": {
+    "string_match_all": {
+     "mean": 0.7625,
+     "stderr": 0.04787824087586227
+    }
+   },
+   "started": "2026-11-12T23:16:50+00:00",
+   "completed": "2026-11-13T04:26:51+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289"
+   },
+   "log": "2026-11-12T23-16-50-00-00_ruler_2g2mL37ox9ESt9AErisTCt.eval"
+  }
+ }
+}
