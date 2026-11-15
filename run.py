@@ -76,9 +76,14 @@ def main():
         cmd = [".venv/bin/inspect", "eval", t["task"], "--model", f"openai-api/spark/{a.model}",
                "--log-dir", str(logdir), "--display", "none", "--no-fail-on-error",
                "--max-connections", str(a.conc), "--temperature", str(a.temperature), "--top-p", str(a.top_p),
-               "--max-tokens", str(a.max_tokens), "--seed", str(SEED), "--timeout", str(a.timeout),
+               "--max-tokens", str(a.max_tokens), "--timeout", str(a.timeout),
                # the OpenAI client's own 600 s default otherwise cuts off long reasoning and retries it from scratch
                "-M", f"client_timeout={a.timeout}"]
+        if t.get("seed", True):
+            cmd += ["--seed", str(SEED)]
+        if "ids" in t:
+            ids = (REPO / t["ids"]).read_text().split()
+            cmd += ["--sample-id", ",".join(ids)]
         for k, v in t.get("args", {}).items():
             cmd += ["-T", f"{k}={v}"]
         if "epochs" in t:
@@ -104,7 +109,8 @@ def main():
         dst.write_text("\n".join(lines[:-1]) + "\n")
         man["tests"][name] = {"status": run["status"], "task": run["task"], "task_args": run["task_args"],
                               "metrics": run["metrics"], "started": run["started"], "completed": run["completed"],
-                              "inspect": run["inspect"], "log": logs[-1].name}
+                              "inspect": run["inspect"], "log": logs[-1].name,
+                              "request_seed": SEED if t.get("seed", True) else None}
         mf.write_text(json.dumps(man, indent=1))
         rows = [json.loads(l) for l in lines[:-1]]
         sc = [x["score"] for x in rows if x["score"] is not None]

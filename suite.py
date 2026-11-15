@@ -4,17 +4,21 @@ Every model answers exactly the same items, so two runs can be compared item by 
 with a new SUITE_VERSION; results from different versions are not comparable.
 """
 
-SUITE_VERSION = "2026.11-1"
-SEED = 2026  # item selection (--sample-shuffle) and sampling seed
+SUITE_VERSION = "2026.11-2"  # -2: MMLU-Pro pinned to a listed 700; AIME samples unseeded
+SEED = 2026  # item selection (--sample-shuffle) and sampling seed (except tests with seed=False)
 
 # Tier 2: the capability baseline, once per model on its fastest setup (about one night).
-# limit + shuffle = a fixed random subset (the same SEED picks the same items on every run).
+# limit + shuffle = a fixed random subset (the same SEED picks the same items on every run), but only for tasks that
+# load their data in a fixed order. ids = a file of item ids, for tasks that do not.
 TIER2 = {
     # knowledge and reasoning
     "gpqa": dict(task="inspect_evals/gpqa_diamond", epochs=1),                       # 198
-    "mmlu_pro": dict(task="inspect_evals/mmlu_pro", limit=700, shuffle=True),        # 700 of 12,032
+    # the task shuffles its data unseeded by default, so 2026.11-1 drew a different 700 each run; these are the 700
+    # the first run (ripple-65b-4x) drew
+    "mmlu_pro": dict(task="inspect_evals/mmlu_pro", args={"shuffle": "false"}, ids="sets/mmlu_pro_700.txt"),  # 700 of 12,032
     # math
-    "aime2025": dict(task="inspect_evals/aime2025", epochs=4),                       # 30 x 4
+    # no request seed: with one, the server returned the same reply in all four epochs
+    "aime2025": dict(task="inspect_evals/aime2025", epochs=4, seed=False),          # 30 x 4
     # instruction following
     "ifeval": dict(task="inspect_evals/ifeval"),                                     # 541
     # coding (rule-scored, run in Python)

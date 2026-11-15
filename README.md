@@ -13,13 +13,13 @@ the runners and the results.
 | 2. Capability baseline | once per model, on its fastest setup | the suite below | one night |
 | 3. Deep | a specific question | full NYU CTF, all three CTF harnesses, SWE-bench Verified | days |
 
-## Tier 2 (suite 2026.11-1)
+## Tier 2 (suite 2026.11-2)
 
 | Area | Test | Items | Scored by |
 |---|---|---|---|
 | Knowledge, reasoning | GPQA Diamond | 198 | letter match |
-| | MMLU-Pro, fixed random subset | 700 | letter match |
-| Math | AIME 2025 | 30 × 4 samples | exact answer |
+| | MMLU-Pro, a fixed 700 (`sets/mmlu_pro_700.txt`) | 700 | letter match |
+| Math | AIME 2025 | 30 × 4 samples (no request seed) | exact answer |
 | Instruction following | IFEval | 541 | rule checks (prompt-level, strict) |
 | Coding | LiveBench coding | all | unit tests |
 | Tool use | BFCL multi-turn base | 100 | state and call match |
@@ -30,6 +30,12 @@ the runners and the results.
 
 Nothing is graded by a model. Item sets and the seed are fixed in `suite.py`; changing them means a new suite
 version, and runs from different versions are not compared.
+
+2026.11-2 fixed two faults in 2026.11-1 and changed nothing else, so the other six Inspect tests compare across the
+two versions. In 2026.11-1, MMLU-Pro's loader shuffled its 12,032 questions without a seed before our seeded sample
+took 700, so every run drew a different 700; 2026.11-2 lists the 700 the first run (ripple-65b-4x) drew. And the
+same seed went with every request, so AIME's four samples of a problem came back identical (30 replies, not 120);
+2026.11-2 sends AIME no seed.
 
 Defaults: temperature 0.6, top-p 0.95, 32K max output tokens, 4 concurrent requests, unless the model's card
 says otherwise (record it in `--note`). Serve the model with at least as many streams as `--conc`.
