@@ -1,0 +1,58 @@
+{
+ "label": "ripple-65b-4x-p4-s2",
+ "model": "Ripple-65B-Preview-4x",
+ "suite": "2026.11-2",
+ "tier": "2",
+ "seed": 2026,
+ "note": "Ripple-65B-Preview, ajensenwaud 5.0bpw EXL3 pack @1d260f75, DFlash2 on; TensorFold 1.2.3 + recipe patches 0001-0015 (tree de18a25b; Phase 4), TP=4 over a QSFP switch, 8 streams x 256K. Card gives no sampling advice: playbook default.",
+ "sampling": {
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "max_tokens": 32768
+ },
+ "concurrency": 8,
+ "tests": {
+  "aime2025": {
+   "status": "success",
+   "task": "inspect_evals/aime2025",
+   "task_args": {},
+   "metrics": {
+    "aime_scorer": {
+     "accuracy": 0.9083333333333333,
+     "stderr": 0.04866513145114362
+    }
+   },
+   "started": "2026-11-15T18:18:09+00:00",
+   "completed": "2026-11-15T20:50:59+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-15T18-18-09-00-00_aime2025_QGNPoLrzq8F8V2ChDtKL9h.eval",
+   "request_seed": null
+  },
+  "mmlu_pro": {
+   "status": "success",
+   "task": "inspect_evals/mmlu_pro",
+   "task_args": {
+    "subjects": [],
+    "fewshot": 0,
+    "shuffle": false
+   },
+   "metrics": {
+    "choice": {
+     "accuracy": 0.8157142857142857,
+     "stderr": 0.014664804625390842
+    }
+   },
+   "started": "2026-11-15T20:51:06+00:00",
+   "completed": "2026-11-16T00:16:46+00:00",
+   "inspect": {
+    "inspect_ai": "0.3.289",
+    "inspect_evals": "0.28.1.dev12+g50b8b19c3"
+   },
+   "log": "2026-11-15T20-51-06-00-00_mmlu-pro_CjFxFVhBAeBqZPXeYcStff.eval",
+   "request_seed": 2026
+  }
+ }
+}
